@@ -8,7 +8,7 @@ int main()
 	std::cout << std::boolalpha << flag << std::endl;
 	int a = 255;
 	const char* s = "string";
-	std::cout << "hex " <<std::uppercase << std::hex << a << std::endl;
+	std::cout << "hex " << std::hex << a << std::endl;
 	std::cout << "dec " << std::dec << a << std::endl;
 	std::cout << "oct " << std::oct << a << std::endl;
 	double pi = 3.141592;
