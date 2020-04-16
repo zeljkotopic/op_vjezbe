@@ -151,10 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="igrac.cpp" />
+    <ClCompile Include="karta.cpp" />
+    <ClCompile Include="mac.cpp" />
     <ClCompile Include="treset.cpp" />
     <ClCompile Include="vjezba4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="igrac.h" />
+    <ClInclude Include="karta.h" />
+    <ClInclude Include="mac.h" />
     <ClInclude Include="treset.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

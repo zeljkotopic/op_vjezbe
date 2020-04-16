@@ -4,62 +4,9 @@
 #include <string>
 #include "treset.h"
 using namespace std;
-string zog[] = { "Spade","Dinari","Bate","Kupe" };
-string broj[] = { "1","2","3","4","5","6","7","fanta","konj","kralj" };
-karta::karta()
-{}
-karta::karta(int broj_zoga, int broj_broja){
-	mojzog = zog[broj_zoga];
-	mojbroj = broj[broj_broja]; 
-} 
-string karta::dohvati_broj(){
-	return mojbroj;
-}
-string karta::dohvati_zog(){
-	return mojzog;
-}
-void karta::ispisi_kartu(){
-	cout << dohvati_broj() << dohvati_zog() << "  ";
-}
-mac::mac(){
-	for (int i = 0; i < 4; i++){
-		for (int j = 0; j < 10; j++){
-			karta* nova = new karta(i, j);
-			deck.push_back(*nova);
-		}
-	}
-}
-void mac::shuffle(){
-	random_shuffle(deck.begin(), deck.end());
-}
-void mac::print_deck(){
-	for (int i = 0; i < 40; i++){
-		deck[i].ispisi_kartu();
-	}
-}
-vector<karta>mac::podijeli(){
-	vector<karta>novi(10);
-	copy(deck.begin(), deck.begin() + 10, novi.begin());
-	deck.erase(deck.begin(), deck.begin() + 10);
-	return novi;
-}
-igrac::igrac(){
-	mac spil;
-	spil.shuffle();
-	kombinacija1 = spil.podijeli();
-	kombinacija2 = spil.podijeli();
-	kombinacija3 = spil.podijeli();
-	kombinacija4 = spil.podijeli();
-}
-void igrac::print(vector<karta>kombinacija){
-	for (int i = 0; i < 10; i++){
-		kombinacija[i].ispisi_kartu();
-	}
-	cout << endl;
-}
-int igrac::troje(vector<karta>kombinacija){
+int treset::troje(vector<karta>kombinacija) {
 	int br1 = 0, br2 = 0, br3 = 0;
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 10; i++) {
 		if (kombinacija[i].dohvati_broj() == "1")
 			br1++;
 		else if (kombinacija[i].dohvati_broj() == "2")
@@ -74,43 +21,107 @@ int igrac::troje(vector<karta>kombinacija){
 	else
 		return 0;
 }
-int igrac::napola_dinara(vector<karta>kombinacija){
+int treset::napola_dinara(vector<karta>kombinacija) {
 	int br = 0;
-	for (int i = 0; i < 10; i++){
-		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3"){
+	for (int i = 0; i < 10; i++) {
+		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3") {
 			if (kombinacija[i].dohvati_zog() == "D")
 				br++;
 		}
 	}
-	return (br==3) ? 3 : 0;
+	return (br == 3) ? 3 : 0;
 }
-int igrac::napola_kupa(vector<karta>kombinacija){
+int treset::napola_kupa(vector<karta>kombinacija) {
 	int br = 0;
-	for (int i = 0; i < 10; i++){
-		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3"){
+	for (int i = 0; i < 10; i++) {
+		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3") {
 			if (kombinacija[i].dohvati_zog() == "K")
 				br++;
 		}
 	}
 	return (br == 3) ? 3 : 0;
 }
-int igrac::napola_spadi(vector<karta>kombinacija){
+int treset::napola_spadi(vector<karta>kombinacija) {
 	int br = 0;
-	for (int i = 0; i < 10; i++){
-		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3"){
+	for (int i = 0; i < 10; i++) {
+		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3") {
 			if (kombinacija[i].dohvati_zog() == "S")
 				br++;
 		}
 	}
 	return (br == 3) ? 3 : 0;
 }
-int igrac::napola_bastona(vector<karta>kombinacija){
+int treset::napola_bastona(vector<karta>kombinacija) {
 	int br = 0;
-	for (int i = 0; i < 10; i++){
-		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3"){
+	for (int i = 0; i < 10; i++) {
+		if (kombinacija[i].dohvati_broj() == "1" || kombinacija[i].dohvati_broj() == "2" || kombinacija[i].dohvati_broj() == "3") {
 			if (kombinacija[i].dohvati_zog() == "B")
 				br++;
 		}
 	}
 	return (br == 3) ? 3 : 0;
+}
+treset::treset(int brIgraca) {
+	//cout << "treset konst" << endl;
+	cout << "----------------TRESET-------------------------------\n";
+	this->brojIgraca = brIgraca;
+	this->spil = new mac(); 
+	this->spil->shuffle();
+}
+treset::~treset() {
+	delete[] & (this->igraci);
+	delete[] & (this->spil);
+	delete this;
+	//cout << "treset dest" << endl;
+}
+void treset::setBrojIgraca(int n) {
+	this->brojIgraca = n;
+}
+int treset::getBrojIgraca() {
+	return this->brojIgraca;
+}
+void treset::zapocniIgru() {
+	string n = "";
+	for (int i = 0; i < this->brojIgraca; i++)
+	{
+		igrac* player = new igrac();
+		cout << "\nUnesite ime igraca:" << endl;
+		cin >> n;
+		player->setIme(n);
+		player->setIgraceveKarte(this->spil->podijeli());
+		this->igraci.push_back(*player);
+	}
+	for (int i = 0; i < this->brojIgraca; i++) {
+		this->bodovanje(&(this->igraci[i]));
+		this->igraci[i].print();
+
+	}
+	cout << "\n------------------FIN-------------------------";
+}
+mac* treset::getMac() {
+	return this->spil;
+}
+void treset::setSpil(mac* s) {
+	this->spil = s;
+}
+vector<igrac> treset::getIgraci() {
+	return this->igraci;
+}
+void treset::setIgraci(vector<igrac> ig) {
+	this->igraci = ig;
+}
+void treset::bodovanje(igrac* player) {
+	if (troje(player->getIgraceveKarte()) == 3)
+		player->setBodovi(player->getBodovi() + 3);
+	else if (troje(player->getIgraceveKarte()) == 4)
+		player->setBodovi(player->getBodovi() + 4);
+
+	if (napola_bastona(player->getIgraceveKarte()) == 3)
+		player->setBodovi(player->getBodovi() + 3);
+	if (napola_spadi(player->getIgraceveKarte()) == 3)
+		player->setBodovi(player->getBodovi() + 3);
+	if (napola_kupa(player->getIgraceveKarte()) == 3)
+		player->setBodovi(player->getBodovi() + 3);
+	if (napola_dinara(player->getIgraceveKarte()) == 3)
+		player->setBodovi(player->getBodovi() + 3);
 }
