@@ -13,4 +13,5 @@ int main()
 //	newBoard->draw_up_line(p1, 'x');
 	newBoard->board_current_state();
 	Board* copy = new Board(newBoard);
+	delete newBoard;
 }

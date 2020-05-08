@@ -22,7 +22,6 @@ Board::~Board(){
 	for (int i = 0; i < this->rows; i++){
 		delete[] this->matrix[i];
 	}
-	delete this;
 }
 void Board::draw_char(Point p, char ch){
 	int r = (int)round(p.x) - 1;
