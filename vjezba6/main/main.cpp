@@ -69,8 +69,8 @@ int main()
 	string line;
 	int br = 0;
 	library* lib = new library();
-	vector<hardcopybook> knjige;
-	vector<ebook> eknjige;
+	//vector<hardcopybook> knjige;
+	//vector<ebook> eknjige;
 	string ime;
 	while (getline(fin, line))
 	{
